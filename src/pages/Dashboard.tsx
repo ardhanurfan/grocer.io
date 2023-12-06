@@ -1,16 +1,29 @@
+import { useState } from "react";
 import Banner from "../components/Banner";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
+import { FaSearch } from "react-icons/fa";
 
 function Dashboard() {
+  const [search, setSearch] = useState<string>("");
+
   return (
     <>
-      <div className="bg-gray-100 text-gray-800 min-h-screen overflow-auto">
-        <Header
-          onSearch={function (x: string): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+      <div className="min-h-screen overflow-auto">
+        <Header />
+        <div className="flex justify-center mb-4">
+          <div className="relative w-full max-w-md">
+            <input
+              type="text"
+              placeholder="Search for products..."
+              className="w-full p-2 border border-gray-300 rounded-l-md text-gray-800 rounded-lg focus:outline-primary"
+              onChange={(val) => setSearch(val.target.value)}
+            />
+            <button className="absolute right-0 top-0 h-full bg-primary text-white p-4 rounded-r-md focus:outline-none flex justify-center items-center hover:bg-opacity-80 active:bg-opacity-50">
+              <FaSearch />
+            </button>
+          </div>
+        </div>
         <Banner />
         {/* Featured Products Section */}
         <section className="container mx-auto my-12">

@@ -4,7 +4,7 @@
 
 @layer base {
   html {
-    @apply font-open-sans;
+    @apply font-open-sans bg-gray-100 text-dark;
   }
 }
 
@@ -15,15 +15,15 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  @apply bg-slate-400;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  @apply z-50 rounded-[5px] bg-primary;
+  @apply z-50 rounded-[5px] bg-gray-600;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  @apply bg-secondary;
+  @apply bg-slate-500;
 }
