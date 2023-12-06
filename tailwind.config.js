@@ -12,6 +12,13 @@ export default {
         secondary: "#00C467",
         third: "#D2D27C",
       },
+      screens: {
+        "2xl": "1320px",
+      },
+    },
+    container: {
+      center: true,
+      padding: "16px",
     },
   },
   plugins: [],

@@ -6,18 +6,14 @@ import {
   Routes,
   createBrowserRouter,
 } from "react-router-dom";
-import Cookies from "js-cookie";
-import Login from "./pages/Login/page";
-import Dashboard from "./pages/Dashboard/page";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
 const ProtectedRoute = () => {
-  const token = Cookies.get("token_grocer_io");
-
-  if (!token) {
-    return <Navigate to="/login" replace />;
-  }
+  // if (!token) {
+  //   return <Navigate to="/login" replace />;
+  // }
 
   return (
     <>
@@ -34,7 +30,7 @@ export default function App() {
 function Root() {
   return (
     <Routes>
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<Dummy title="kontol" />} />
       <Route path="*" element={<Dummy title={"Not Found"} />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Dashboard />} />

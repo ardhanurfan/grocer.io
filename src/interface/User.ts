@@ -1,10 +1,7 @@
 interface User {
-  id: number;
+  id: string;
   fullname: string;
   email: string;
-  username: string;
   password: string;
-  role: string;
-  consult_token: string | null;
-  cleaning_token: string | null;
+  subscription: string;
 }
