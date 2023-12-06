@@ -7,7 +7,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import ListProduct from "./pages/ListProduct";
+import DetailProduk from "./pages/DetailProduk";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -34,7 +34,8 @@ function Root() {
       <Route path="/login" element={<Dummy title="kontol" />} />
       <Route path="*" element={<Dummy title={"Not Found"} />} />
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<ListProduct />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/detail/:id" element={<DetailProduk />} />
       </Route>
     </Routes>
   );
