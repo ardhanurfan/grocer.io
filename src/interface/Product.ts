@@ -4,4 +4,7 @@ interface Product {
   stock: number;
   price: number;
   category: string;
+  photo_url: string;
+  jenis: string;
+  description: string;
 }
