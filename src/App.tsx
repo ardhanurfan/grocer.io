@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import DetailProduk from "./pages/DetailProduk";
+import ListProduct from "./pages/ListProduct";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -36,6 +37,7 @@ function Root() {
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/detail/:id" element={<DetailProduk />} />
+        <Route path="/list-product" element={<ListProduct />} />
       </Route>
     </Routes>
   );

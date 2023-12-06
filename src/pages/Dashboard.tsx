@@ -1,11 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Banner from "../components/Banner";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import { FaSearch } from "react-icons/fa";
+import { supabase } from "../lib/api";
+import ProductCard from "../components/ProductCard";
 
 function Dashboard() {
   const [search, setSearch] = useState<string>("");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filtered, setFiltered] = useState<Product[]>([]);
+
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const { data, error } = await supabase.from("products").select("*");
+        if (error) {
+          throw error;
+        }
+        setProducts(data as Product[]);
+        setFiltered(data as Product[]);
+      } catch (error) {
+        console.error("Error fetching products");
+      }
+    }
+    fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    setFiltered(
+      products.filter(
+        (val: Product) =>
+          val.name.toLowerCase().includes(search.toLowerCase()) ||
+          val.category.toLowerCase().includes(search.toLowerCase()) ||
+          val.price.toString().includes(search.toLowerCase())
+      )
+    );
+  }, [search]);
 
   return (
     <>
@@ -25,35 +56,22 @@ function Dashboard() {
           </div>
         </div>
         <Banner />
+
         {/* Featured Products Section */}
         <section className="container mx-auto my-12">
-          <h2 className="text-4xl font-bold ">Featured Products</h2>
+          <h2 className="text-4xl font-bold mb-6">Featured Products</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
-            {/* {filtered.map((shoes: Product, index) => (
+            {filtered.map((product: Product, index) => (
               <div key={index} className="flex-shrink-0">
-                <ProductCard
-                  onSelect={(product) => {
-                    setSelected(product);
-                    setShowDetail(true);
-                  }}
-                  product={shoes}
-                  onDelete={(id) => {
-                    setShowHapusProduct(true);
-                    setProductId(id);
-                  }}
-                  onAdd={(id) => {
-                    setShowAddVarian(true);
-                    setProductId(id);
-                  }}
-                />
+                <ProductCard product={product} />
               </div>
-            ))} */}
+            ))}
           </div>
         </section>
 
         {/* Brands Section */}
         <section className="container mx-auto my-12">
-          <h2 className="text-4xl font-bold ">Brands</h2>
+          <h2 className="text-4xl font-bold mb-6">Our Partners</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {/* {brands.map((brand, index) => (
               <BrandCard

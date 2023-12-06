@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { createClient } from "@supabase/supabase-js";
+import { supabase } from "../lib/api";
 
 function ListProduct() {
-  const supabaseUrl = "https://qjalrjzippcvvctepuqc.supabase.co";
-  const supabaseKey =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqYWxyanppcHBjdnZjdGVwdXFjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MDEzNjA4NTgsImV4cCI6MjAxNjkzNjg1OH0.wW-iHoAknfsRYRptAUqM4KVTzFak3TEtaPXzCSvux7Q"; // Ganti dengan API Key Supabase Anda
-
-  const supabase = createClient(supabaseUrl, supabaseKey);
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
