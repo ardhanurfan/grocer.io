@@ -32,8 +32,9 @@ function Dashboard() {
       products.filter(
         (val: Product) =>
           val.name.toLowerCase().includes(search.toLowerCase()) ||
-          val.category.toLowerCase().includes(search.toLowerCase()) ||
-          val.price.toString().includes(search.toLowerCase())
+          val.jenis.toLowerCase().includes(search.toLowerCase()) ||
+          val.price.toString().includes(search.toLowerCase()) ||
+          val.stok.toString().includes(search.toLowerCase())
       )
     );
   }, [search]);
