@@ -1,8 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import { formatRp } from "./FormatRp";
 
 const ProductCard = ({ product }: { product: Product }) => {
+  const navigator = useNavigate();
   return (
-    <div className="relative">
+    <div
+      onClick={() => navigator(`/detail/${product.id}`)}
+      className="relative"
+    >
       <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl ease-in-out duration-300 cursor-pointer">
         <img
           className="w-full h-60 object-cover mb-4 rounded-md"

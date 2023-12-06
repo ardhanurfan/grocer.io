@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { supabase } from "../lib/api";
+import Header from "../components/Header";
 
 function ListProduct() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -17,13 +18,14 @@ function ListProduct() {
         console.error("Error fetching products");
       }
     }
-
     fetchProducts();
   }, []);
+
   return (
-    <div className="w-full flex flex-col pb-10 bg-background min-h-screen pt-[120PX] px-4 xl:px-28 gap-12 items-center">
-      <h1 className="text-[24px] md:text-[36px] xl:text-[64px] font-bold text-purple-primary text-center">
-        PRODUCTS
+    <div className="w-full container items-center">
+      <Header />
+      <h1 className="text-[40px] font-bold text-purple-primary text-center">
+        Products
       </h1>
       <div className="w-full">
         <div className="w-full grid grid-cols-4 justify-items-center gap-y-10">

@@ -30,7 +30,7 @@ function DetailProduk() {
   }, []);
   return (
     <>
-      <div className="w-full h-full px-20 pb-10">
+      <div className="w-full h-full pb-10 container">
         <Header />
         <div className="w-full justify-center text-4xl font-bold">
           Detail Product
