@@ -6,9 +6,11 @@ import { UserContext } from "../context/UserContext";
 import { useEventListener } from "usehooks-ts";
 import { FaCartShopping } from "react-icons/fa6";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
+import { CartContext } from "../context/CartContext";
 
 function Header() {
   const navigator = useNavigate();
+  const cartContext = useContext(CartContext);
   const { user } = useContext(UserContext);
   const [isAccount, setAccount] = useState(false);
 
@@ -47,7 +49,7 @@ function Header() {
           <Link className="relative text-4xl" to={"/cart"}>
             <FaCartShopping />
             <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-secondary text-white font-semibold text-[10px] flex justify-center items-center">
-              12
+              {cartContext?.cart.reduce((sum, item) => sum + item.qty, 0)}
             </div>
           </Link>
           <div

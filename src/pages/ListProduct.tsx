@@ -2,9 +2,13 @@ import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { supabase } from "../lib/api";
 import Header from "../components/Header";
+import Button from "../components/Button";
+import { IoChevronBackCircleOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 function ListProduct() {
   const [products, setProducts] = useState<Product[]>([]);
+  const navigator = useNavigate();
 
   useEffect(() => {
     async function fetchProducts() {
@@ -24,6 +28,15 @@ function ListProduct() {
   return (
     <div className="w-full container items-center">
       <Header />
+      <div className="my-6">
+        <Button
+          type={"button"}
+          text="Back"
+          color="secondary"
+          icon={<IoChevronBackCircleOutline />}
+          onClick={() => navigator("/")}
+        />
+      </div>
       <h1 className="text-[40px] font-bold text-purple-primary text-center">
         Products
       </h1>

@@ -3,10 +3,15 @@ import Header from "../components/Header";
 import { useEffect, useState } from "react";
 import { FormatRupiah } from "@arismun/format-rupiah";
 import { supabase } from "../lib/api";
+import Button from "../components/Button";
+import { IoChevronBackCircleOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 function DetailProduk() {
   const params = useParams();
   const idx = params.id;
+
+  const navigator = useNavigate();
 
   const [product, setProduct] = useState<Product | null>(null);
   useEffect(() => {
@@ -32,6 +37,15 @@ function DetailProduk() {
     <>
       <div className="w-full h-full pb-10 container">
         <Header />
+        <div className="my-6">
+          <Button
+            type={"button"}
+            text="Back"
+            color="secondary"
+            icon={<IoChevronBackCircleOutline />}
+            onClick={() => navigator("/")}
+          />
+        </div>
         <div className="w-full justify-center text-4xl font-bold">
           Detail Product
         </div>

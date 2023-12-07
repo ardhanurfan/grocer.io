@@ -9,6 +9,8 @@ import {
 import Dashboard from "./pages/Dashboard";
 import DetailProduk from "./pages/DetailProduk";
 import ListProduct from "./pages/ListProduct";
+import Cart from "./pages/Cart";
+import CartProvider from "./context/CartContext";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -18,10 +20,10 @@ const ProtectedRoute = () => {
   // }
 
   return (
-    <>
+    <CartProvider>
       {/* <Navbar /> */}
       <Outlet />
-    </>
+    </CartProvider>
   );
 };
 
@@ -38,6 +40,7 @@ function Root() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/detail/:id" element={<DetailProduk />} />
         <Route path="/list-product" element={<ListProduct />} />
+        <Route path="/cart" element={<Cart />} />
       </Route>
     </Routes>
   );
