@@ -1,15 +1,18 @@
 import { useParams } from "react-router";
 import Header from "../components/Header";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FormatRupiah } from "@arismun/format-rupiah";
 import { supabase } from "../lib/api";
 import Button from "../components/Button";
 import { IoChevronBackCircleOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
+import { CartContext } from "../context/CartContext";
 
 function DetailProduk() {
   const params = useParams();
   const idx = params.id;
+
+  const cartContext = useContext(CartContext);
 
   const navigator = useNavigate();
 
@@ -73,6 +76,34 @@ function DetailProduk() {
                 <span className="font-normal">{product && product.stok}</span>
               </p>
             </div>
+            {product &&
+              cartContext &&
+              (cartContext.cart.filter((item) => item.product.id == product.id)
+                .length > 0 ? (
+                <Button
+                  type={"button"}
+                  text="Remove from Cart"
+                  color="red"
+                  onClick={() => {
+                    cartContext.setCart([
+                      ...cartContext.cart.filter(
+                        (item) => item.product.id != product.id
+                      ),
+                    ]);
+                  }}
+                />
+              ) : (
+                <Button
+                  type={"button"}
+                  text="Add to Cart"
+                  onClick={() => {
+                    cartContext.setCart([
+                      ...cartContext.cart,
+                      { product: product!, qty: 1 },
+                    ]);
+                  }}
+                />
+              ))}
           </div>
         </div>
       </div>

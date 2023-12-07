@@ -37,14 +37,14 @@ function Cart() {
               <div className="flex gap-6">
                 <img
                   className="w-32 h-32 object-cover rounded-md"
-                  title={product.products.name}
+                  title={product.product.name}
                   src={"/banner.jpg"}
                 ></img>
                 <div className="flex flex-col justify-center gap-2">
-                  <h3 className="text-lg font-bold">{product.products.name}</h3>
-                  <p className="text-blue-800">{product.products.jenis}</p>
+                  <h3 className="text-lg font-bold">{product.product.name}</h3>
+                  <p className="text-blue-800">{product.product.jenis}</p>
                   <p className="text-red-600 font-bold">
-                    {formatRp(product.products.price)}
+                    {formatRp(product.product.price)}
                   </p>
                 </div>
               </div>
@@ -75,7 +75,7 @@ function Cart() {
                   />
                 </div>
                 <p className="text-blue-900 font-bold text-xl">
-                  {formatRp(product.products.price * product.qty)}
+                  {formatRp(product.product.price * product.qty)}
                 </p>
               </div>
             </div>
@@ -87,7 +87,7 @@ function Cart() {
             <p className="text-blue-950 text-2xl font-bold">
               {formatRp(
                 cartContext!.cart.reduce(
-                  (sum, item) => sum + item.qty * item.products.price,
+                  (sum, item) => sum + item.qty * item.product.price,
                   0
                 )
               )}

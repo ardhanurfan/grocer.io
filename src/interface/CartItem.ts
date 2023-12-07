@@ -1,4 +1,4 @@
 interface CartItem {
-  products: Product;
+  product: Product;
   qty: number;
 }

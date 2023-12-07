@@ -7,7 +7,7 @@ interface CartContextType {
 
 const products: CartItem[] = [
   {
-    products: {
+    product: {
       id: 1,
       name: "Sayur Wortel Kobis",
       stok: 120,
@@ -20,7 +20,7 @@ const products: CartItem[] = [
     qty: 2,
   },
   {
-    products: {
+    product: {
       id: 2,
       name: "Sayur Wortel Kobis",
       stok: 120,
@@ -33,7 +33,7 @@ const products: CartItem[] = [
     qty: 2,
   },
   {
-    products: {
+    product: {
       id: 3,
       name: "Sayur Wortel Kobis",
       stok: 120,
@@ -50,7 +50,7 @@ const products: CartItem[] = [
 export const CartContext = createContext<CartContextType | null>(null);
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [cart, setCart] = useState<CartItem[]>(products);
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   return (
     <CartContext.Provider value={{ cart, setCart }}>
