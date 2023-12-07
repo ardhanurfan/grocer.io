@@ -23,7 +23,7 @@ const ProductCard = ({ product }: { product: Product }) => {
             <p className="text-red-600 font-bold mb-2">
               {formatRp(product.price)}
             </p>
-            <p className="text-gray-600 mb-2">{product.stok}</p>
+            <p className="text-gray-600 mb-2">Stok: {product.stok}</p>
           </div>
         </div>
       </div>
