@@ -10,7 +10,6 @@ import GaugeComponent from "react-gauge-component";
 export default function Rack() {
   const [products, setProducts] = useState<any[]>([]);
   const navigator = useNavigate();
-  const now = new Date();
 
   useEffect(() => {
     async function fetchProducts() {

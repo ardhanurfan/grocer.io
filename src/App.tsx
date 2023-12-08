@@ -10,30 +10,26 @@ import Dashboard from "./pages/Dashboard";
 import DetailProduk from "./pages/DetailProduk";
 import ListProduct from "./pages/ListProduct";
 import Cart from "./pages/Cart";
-import CartProvider from "./context/CartContext";
 import Premium from "./pages/Premium";
 import Rack from "./pages/Rack";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import UserProvider, { UserContext } from "./context/UserContext";
+import { UserContext } from "./context/UserContext";
 import { useContext } from "react";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
 const ProtectedRoute = () => {
-  const { user } = useContext(UserContext);
+  const userContext = useContext(UserContext);
 
-  if (!user) {
+  if (!userContext?.user) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <CartProvider>
-      <UserProvider>
-        {/* <Navbar /> */}
-        <Outlet />
-      </UserProvider>
-    </CartProvider>
+    <>
+      <Outlet />
+    </>
   );
 };
 
@@ -44,8 +40,8 @@ export default function App() {
 function Root() {
   return (
     <Routes>
-      <Route path="/login" element={<Login/>} />
-      <Route path="/register" element={<Register/>} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
       <Route path="*" element={<Dummy title={"Not Found"} />} />
       <Route element={<ProtectedRoute />}>
         <Route path="/" element={<Dashboard />} />
