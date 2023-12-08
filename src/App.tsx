@@ -11,6 +11,7 @@ import DetailProduk from "./pages/DetailProduk";
 import ListProduct from "./pages/ListProduct";
 import Cart from "./pages/Cart";
 import CartProvider from "./context/CartContext";
+import Premium from "./pages/Premium";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -41,6 +42,7 @@ function Root() {
         <Route path="/detail/:id" element={<DetailProduk />} />
         <Route path="/list-product" element={<ListProduct />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/premium" element={<Premium />} />
       </Route>
     </Routes>
   );
