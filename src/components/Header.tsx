@@ -6,6 +6,8 @@ import { useEventListener } from "usehooks-ts";
 import { FaCartShopping } from "react-icons/fa6";
 import { MdOutlineWorkspacePremium } from "react-icons/md";
 import { CartContext } from "../context/CartContext";
+import { supabase } from "../lib/api";
+import Cookies from "js-cookie";
 
 function Header() {
   const navigator = useNavigate();
@@ -28,10 +30,15 @@ function Header() {
 
   const handleLogOut = async () => {
     try {
+      let { error } = await supabase.auth.signOut();
+      if (error) {
+        throw error.message;
+      }
       toastSuccess("Log Out Successfully");
       navigator("/login");
+      Cookies.remove("token_grocerio");
     } catch (error) {
-      toastError("Logout Gagal");
+      toastError(error as string);
     } finally {
     }
   };

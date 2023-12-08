@@ -14,23 +14,26 @@ import Premium from "./pages/Premium";
 import Rack from "./pages/Rack";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import { UserContext } from "./context/UserContext";
-import { useContext } from "react";
+import UserProvider from "./context/UserContext";
 import History from "./pages/History";
+import CartProvider from "./context/CartContext";
+import Cookies from "js-cookie";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
 const ProtectedRoute = () => {
-  const userContext = useContext(UserContext);
+  const token = Cookies.get("token_grocerio");
 
-  if (!userContext?.user) {
+  if (!token) {
     return <Navigate to="/login" replace />;
   }
 
   return (
-    <>
-      <Outlet />
-    </>
+    <CartProvider>
+      <UserProvider>
+        <Outlet />
+      </UserProvider>
+    </CartProvider>
   );
 };
 
