@@ -59,7 +59,9 @@ function Header() {
             onClick={() => setAccount(!isAccount)}
           >
             <img
-              src={`https://ui-avatars.com/api/?name=${"Ramadhan"}&color=FDFDFD&background=006837`}
+              src={`https://ui-avatars.com/api/?name=${
+                userContext!.user?.fullname
+              }&color=FDFDFD&background=006837`}
               className="account-detail h-12 w-12 shrink-0 rounded-full"
               alt="Profile"
             />

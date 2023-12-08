@@ -63,7 +63,6 @@ function Dashboard() {
 
         {/* Featured Products Section */}
         <section className="container mx-auto my-12">
-          <h2 className="text-4xl font-bold mb-6">Featured Products</h2>
           <div className="flex justify-between items-center mb-8">
             <h2 className="text-4xl font-bold ">Featured Products</h2>
             <Button
