@@ -54,7 +54,7 @@ function DetailProduk() {
         </div>
         <div className="flex mt-10 gap-10">
           <img
-            src="/terang.jpg"
+            src={product?.photo_url}
             alt=""
             className="text-center max-h-80 max-w-80 rounded-lg"
           />
