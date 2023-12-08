@@ -7,11 +7,13 @@ import { supabase } from "../lib/api";
 import ProductCard from "../components/ProductCard";
 import Button from "../components/Button";
 import { useNavigate } from "react-router-dom";
+import BrandCard from "../components/BrandCard";
 
 function Dashboard() {
   const navigator = useNavigate();
   const [search, setSearch] = useState<string>("");
   const [products, setProducts] = useState<Product[]>([]);
+  const [brands, setBrands] = useState<any[]>([]);
   const [filtered, setFiltered] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -28,6 +30,21 @@ function Dashboard() {
       }
     }
     fetchProducts();
+  }, []);
+
+  useEffect(() => {
+    async function fetchSuppliers() {
+      try {
+        const { data, error } = await supabase.from("suppliers").select("*");
+        if (error) {
+          throw error;
+        }
+        setBrands(data);
+      } catch (error) {
+        console.error("Error fetching suppliers");
+      }
+    }
+    fetchSuppliers();
   }, []);
 
   useEffect(() => {
@@ -84,16 +101,12 @@ function Dashboard() {
         <section className="container mx-auto my-12">
           <h2 className="text-4xl font-bold mb-6">Our Partners</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            {/* {brands.map((brand, index) => (
+            {brands.map((brand, index) => (
               <BrandCard
                 key={index}
-                brand={brand}
-                onDelete={(id) => {
-                  setShowHapusBrand(true);
-                  setBrandId(id);
-                }}
+                brand={brand.name}
               />
-            ))} */}
+            ))}
           </div>
         </section>
 
