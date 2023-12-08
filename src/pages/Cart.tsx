@@ -171,15 +171,6 @@ function Cart() {
                     <div className="flex items-center gap-6">
                       <Button
                         type={"button"}
-                        icon={<IoMdAdd />}
-                        onClick={() => {
-                          cartContext.cart[idx].qty++;
-                          cartContext.setCart([...cartContext.cart]);
-                        }}
-                      />
-                      <p className="text-gray-800 font-medium">{product.qty}</p>
-                      <Button
-                        type={"button"}
                         icon={<IoMdRemove />}
                         color="red"
                         onClick={() => {
@@ -190,6 +181,15 @@ function Cart() {
                             cartContext.cart[idx].qty--;
                             cartContext.setCart([...cartContext.cart]);
                           }
+                        }}
+                      />
+                      <p className="text-gray-800 font-medium">{product.qty}</p>
+                      <Button
+                        type={"button"}
+                        icon={<IoMdAdd />}
+                        onClick={() => {
+                          cartContext.cart[idx].qty++;
+                          cartContext.setCart([...cartContext.cart]);
                         }}
                       />
                     </div>
