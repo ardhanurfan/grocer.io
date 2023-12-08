@@ -12,6 +12,7 @@ import ListProduct from "./pages/ListProduct";
 import Cart from "./pages/Cart";
 import CartProvider from "./context/CartContext";
 import Premium from "./pages/Premium";
+import Rack from "./pages/Rack";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -43,6 +44,7 @@ function Root() {
         <Route path="/list-product" element={<ListProduct />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/premium" element={<Premium />} />
+        <Route path="/rack" element={<Rack />} />
       </Route>
     </Routes>
   );
