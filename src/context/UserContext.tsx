@@ -4,19 +4,21 @@ import { supabase } from "../lib/api";
 
 export type UserTypeContext = {
   user: User | null;
+  setUser: (user: User) => void;
 };
 
-const defaultValue = {
-  user: {
-    id: "",
-    fullname: "",
-    email: "",
-    password: "",
-    premium: false,
-  },
-};
+// const defaultValue = {
+//   user: {
+//     id: "",
+//     fullname: "",
+//     email: "",
+//     password: "",
+//     premium: false,
+//   },
+//   setUser:
+// };
 
-export const UserContext = createContext<UserTypeContext>(defaultValue);
+export const UserContext = createContext<UserTypeContext | null>(null);
 
 const UserProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -27,25 +29,25 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
 
   const getUser = async () => {
     // if (token) {
-      try {
-        const { data, error } = await supabase.auth.getUser();
+    try {
+      const { data, error } = await supabase.auth.getUser();
 
-        if (error) {
-          throw new Error(error.message);
-        }
-
-        if (data) {
-          updateUser({
-            id: data.user.id,
-            fullname: data.user.user_metadata?.fullname || "",
-            email: data.user.email || "",
-            password: "",
-            premium: data.user.user_metadata?.premium || false,
-          });
-        }
-      } catch (error) {
-        toastError("Get User Failed");
+      if (error) {
+        throw new Error(error.message);
       }
+
+      if (data) {
+        updateUser({
+          id: data.user.id,
+          fullname: data.user.user_metadata?.fullname || "",
+          email: data.user.email || "",
+          password: "",
+          premium: data.user.user_metadata?.premium || false,
+        });
+      }
+    } catch (error) {
+      toastError("Get User Failed");
+    }
     // }
   };
 
@@ -58,7 +60,9 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    <UserContext.Provider value={{ user, setUser }}>
+      {children}
+    </UserContext.Provider>
   );
 };
 

@@ -4,21 +4,31 @@ import Header from "../components/Header";
 import Textfield from "../components/TextField";
 import { supabase } from "../lib/api";
 import { toast } from "react-toastify";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 function Premium() {
   const navigator = useNavigate();
+  const userContext = useContext(UserContext);
   async function setPremium() {
     try {
-      const { data, error } = await supabase
-        .from("auth.users")
-        .update({ premium: true })
-        .eq("id", (await supabase.auth.getUser()).data.user?.id);
+      const { data, error } = await supabase.auth.updateUser({
+        data: { premium: true },
+      });
 
       if (error) {
         toast("Error");
       }
-      console.log(data);
-      toast("Welcome to Premium Club");
+      if (data.user) {
+        userContext?.setUser({
+          id: data.user.id,
+          fullname: data.user.user_metadata?.fullname || "",
+          email: data.user.email || "",
+          password: "",
+          premium: data.user.user_metadata?.premium || false,
+        });
+      }
+      toast("Welcome to Premium Club", { position: toast.POSITION.TOP_CENTER });
       navigator("/");
     } catch (error) {
       toast("Error");
