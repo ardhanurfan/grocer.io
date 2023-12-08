@@ -22,7 +22,7 @@ const ProductCard = ({
         <img
           className="w-full h-60 object-cover mb-4 rounded-md"
           title={product.name}
-          src={"/banner.jpg"}
+          src={product.photo_url}
         ></img>
         <div>
           <div className="flex justify-between items-center">
