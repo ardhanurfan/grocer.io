@@ -3,5 +3,5 @@ interface User {
   fullname: string;
   email: string;
   password: string;
-  subscription: string;
+  premium: string;
 }
