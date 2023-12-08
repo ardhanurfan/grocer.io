@@ -1,6 +1,6 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { toastError } from "../components/Toast";
+import { supabase } from "../lib/api";
 
 export type UserTypeContext = {
   user: User | null;
@@ -12,7 +12,7 @@ const defaultValue = {
     fullname: "",
     email: "",
     password: "",
-    subscription: "",
+    premium: false,
   },
 };
 
@@ -25,17 +25,28 @@ const UserProvider = ({ children }: { children: ReactNode }) => {
     setUser(user);
   };
 
-  const token = Cookies.get("token_vshoes");
   const getUser = async () => {
-    if (token) {
-      //   try {
-      //     const response = await getWithAuth(token, "users/me");
-      //     const data = response.data?.data;
-      //     updateUser(data);
-      //   } catch (error) {
-      //     toastError("Get User Failed");
-      //   }
-    }
+    // if (token) {
+      try {
+        const { data, error } = await supabase.auth.getUser();
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        if (data) {
+          updateUser({
+            id: data.user.id,
+            fullname: data.user.user_metadata?.fullname || "",
+            email: data.user.email || "",
+            password: "",
+            premium: data.user.user_metadata?.premium || false,
+          });
+        }
+      } catch (error) {
+        toastError("Get User Failed");
+      }
+    // }
   };
 
   useEffect(() => {

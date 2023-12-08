@@ -34,7 +34,7 @@ function Textfield({
           type={showPassword || type != "password" ? "text" : "password"}
           id={label}
           name={label}
-          className="w-full p-2 border border-gray-300 rounded-md focus:outline-gray-900"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-secondary"
           placeholder={`Enter your ${label.toLowerCase()}`}
           value={value}
           onChange={onChange}

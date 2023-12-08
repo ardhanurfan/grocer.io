@@ -1,6 +1,5 @@
 import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
 import { toastError, toastSuccess } from "./Toast";
 import { UserContext } from "../context/UserContext";
 import { useEventListener } from "usehooks-ts";
@@ -27,17 +26,13 @@ function Header() {
   };
   useEventListener("click", onClickAccount, documentRef);
 
-  const [isLoading, setIsLoading] = useState(false);
   const handleLogOut = async () => {
-    setIsLoading(true);
     try {
-      Cookies.remove("token_vshoes");
       toastSuccess("Log Out Successfully");
       navigator("/login");
     } catch (error) {
       toastError("Logout Gagal");
     } finally {
-      setIsLoading(false);
     }
   };
 
@@ -63,12 +58,12 @@ function Header() {
             />
             <div className="account-detail ml-3 relative">
               <p className="account-detail overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-purple-primary group-hover:text-orange-primary text-end max-w-[150px]">
-                {"Ramadhan Sanantaa"}
+                {user?.fullname}
               </p>
-              <div className="account-detail flex items-center text-white bg-yellow-600 py-1/2 px-2 text-[12px] rounded-full max-w-fit">
+              {user?.premium &&<div className="account-detail flex items-center text-white bg-yellow-600 py-1/2 px-2 text-[12px] rounded-full max-w-fit">
                 <MdOutlineWorkspacePremium />
                 Premium
-              </div>
+              </div>}
               {isAccount && (
                 <div className="absolute w-[200px] bg-white shadow-lg right-0 top-0 translate-y-[56px] rounded-lg">
                   <div
