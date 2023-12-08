@@ -16,7 +16,7 @@ export default function History() {
       try {
         const { data, error } = await supabase
           .from("orderItems")
-          .select("*,products(*)");
+          .select("*,products(*)").order('created_at', { ascending: false });
         if (error) {
           throw error;
         }
