@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toastError, toastSuccess } from "../components/Toast";
 import Button from "../components/Button";
 import { supabase } from "../lib/api";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const [email, setEmail] = useState<string>("");
@@ -22,6 +23,7 @@ const Login = () => {
     setIsLoading(false);
 
     if (data) {
+      Cookies.set("token_grocerio", data.session!.access_token);
       toastSuccess("Sign in successfully");
       navigator("/");
     }
@@ -57,11 +59,20 @@ const Login = () => {
             />
           </div>
           <div className="flex flex-col gap-4 items-center">
-            <Button type={"submit"} isLoading={isLoading} color="primary" text="Sign In"/>
-            <p
-              className="inline-block align-baseline font-bold text-sm text-gray-800"
-            >
-              Don't have an account? <Link to="/register" className="inline-block align-baseline font-bold text-sm text-gray-800 hover:text-secondary transition-all duration-300">Register Now</Link>
+            <Button
+              type={"submit"}
+              isLoading={isLoading}
+              color="primary"
+              text="Sign In"
+            />
+            <p className="inline-block align-baseline font-bold text-sm text-gray-800">
+              Don't have an account?{" "}
+              <Link
+                to="/register"
+                className="inline-block align-baseline font-bold text-sm text-gray-800 hover:text-secondary transition-all duration-300"
+              >
+                Register Now
+              </Link>
             </p>
           </div>
         </form>
@@ -73,7 +84,7 @@ const Login = () => {
           className="md:max-w-md xl:max-w-xl absolute bottom-12 right-64"
         />
       </div>
-      <hr className="border-2 bottom-12 w-full absolute border-primary"/>
+      <hr className="border-2 bottom-12 w-full absolute border-primary" />
     </div>
   );
 };
