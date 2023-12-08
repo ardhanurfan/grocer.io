@@ -10,14 +10,14 @@ const Banner = () => {
   return (
     <div className="bg-gray-900 p-12 text-center rounded-b-3xl flex flex-col items-center bg-[url('/banner.jpg')] bg-cover bg-top">
       <h1 className="text-5xl font-extrabold text-white mb-4">
-        Discover the Latest Trends in Footwear
+        Discover the Fresh Produces in Market
       </h1>
       <p className="text-lg text-white">
-        Explore our curated collection and find the perfect pair for every
-        style.
+        Explore our curated collection and find the perfect product for every
+        step.
       </p>
       <p className="text-lg text-white">
-        Consult with us and improve your existing shoes.
+        Consult with us and design your food.
       </p>
       <div className="flex gap-4 flex-col md:flex-row">
         {userContext?.user?.premium ? (
