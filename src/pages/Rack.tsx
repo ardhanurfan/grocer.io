@@ -11,6 +11,7 @@ import moment from "moment";
 export default function Rack() {
   const [products, setProducts] = useState<any[]>([]);
   const navigator = useNavigate();
+  const now = new Date();
 
   useEffect(() => {
     async function fetchProducts() {
