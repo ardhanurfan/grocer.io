@@ -41,7 +41,7 @@ function ListProduct() {
         Products
       </h1>
       <div className="w-full">
-        <div className="w-full grid grid-cols-4 justify-items-center gap-y-10">
+        <div className="w-full grid grid-cols-4 justify-items-center gap-6 my-10">
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

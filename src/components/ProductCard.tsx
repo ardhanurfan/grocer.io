@@ -1,7 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { formatRp } from "./FormatRp";
 
-const ProductCard = ({ product }: { product: Product }) => {
+const ProductCard = ({
+  product,
+  expiredDate,
+  amount,
+}: {
+  product: Product;
+  expiredDate?: Date;
+  amount?: number;
+}) => {
   const navigator = useNavigate();
   return (
     <div
@@ -20,10 +28,18 @@ const ProductCard = ({ product }: { product: Product }) => {
             <p className="text-blue-800 mb-2">{product.jenis}</p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="text-red-600 font-bold mb-2">
-              {formatRp(product.price)}
+            {expiredDate ? (
+              <p className="text-red-600 font-bold mb-2">
+                {expiredDate.toString()}
+              </p>
+            ) : (
+              <p className="text-red-600 font-bold mb-2">
+                {formatRp(product.price)}
+              </p>
+            )}
+            <p className="text-gray-600 mb-2">
+              Stok: {amount ? amount : product.stok}
             </p>
-            <p className="text-gray-600 mb-2">Stok: {product.stok}</p>
           </div>
         </div>
       </div>
