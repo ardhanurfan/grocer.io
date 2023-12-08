@@ -1,76 +1,95 @@
-import { useContext, useState } from "react";
-import { FaSearch } from "react-icons/fa";
-import { IoIosLogOut } from "react-icons/io";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie";
+import { useContext, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toastError, toastSuccess } from "./Toast";
 import { UserContext } from "../context/UserContext";
+import { useEventListener } from "usehooks-ts";
+import { FaCartShopping } from "react-icons/fa6";
+import { MdOutlineWorkspacePremium } from "react-icons/md";
+import { CartContext } from "../context/CartContext";
 
-function Header({ onSearch }: { onSearch: (x: string) => void }) {
+function Header() {
   const navigator = useNavigate();
-  const { user } = useContext(UserContext);
+  const userContext = useContext(UserContext);
+  const cartContext = useContext(CartContext);
+  const [isAccount, setAccount] = useState(false);
 
-  const [isLoading, setIsLoading] = useState(false);
+  const documentRef = useRef<Document>(document);
+  const onClickAccount = (event: Event) => {
+    let cekAccount = true;
+    const doc = document.getElementsByClassName("account-detail");
+    for (let index = 0; index < doc.length; index++) {
+      cekAccount = cekAccount && event.target != doc[index];
+    }
+    if (cekAccount) {
+      setAccount(false);
+    }
+  };
+  useEventListener("click", onClickAccount, documentRef);
+
   const handleLogOut = async () => {
-    setIsLoading(true);
     try {
-      Cookies.remove("token_vshoes");
       toastSuccess("Log Out Successfully");
       navigator("/login");
     } catch (error) {
       toastError("Logout Gagal");
     } finally {
-      setIsLoading(false);
     }
   };
 
   return (
-    <div className="container mx-auto my-6 md:my-12">
+    <div className="container mx-auto my-2">
       <div className="flex items-center justify-between">
-        <div className="flex items-center">
-          <img
-            src={`https://ui-avatars.com/api/?name=${user?.fullname}&color=FFFFFF&background=6d7482`}
-            className="h-12 w-12 shrink-0 rounded-full"
-            alt="Profile"
-          />
-          <p className="ml-3 w-[130px] overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-purple-primary xl:group-hover:text-orange-primary">
-            {user?.fullname}
-          </p>
-        </div>
-        <div className="relative w-full max-w-md hidden lg:block">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-full p-2 border border-gray-300 rounded-l-md text-gray-800 rounded-lg focus:outline-gray-900"
-            onChange={(val) => onSearch(val.target.value)}
-          />
-          <div className="absolute right-0 top-0 h-full bg-gray-900 text-white p-4 rounded-r-md focus:outline-none flex justify-center items-center">
-            <FaSearch />
-          </div>
-        </div>
-        <button
-          onClick={handleLogOut}
-          className="text-red-500 hover:bg-red-500 hover:text-white px-6 py-2 rounded-full font-bold active:bg-opacity-50 transition-all duration-300 flex gap-2 justify-center items-center"
-        >
-          <>
-            <div className="text-2xl">
-              <IoIosLogOut />
+        <img src="/logo_text.png" className="h-12" alt="Profile" />
+        <div className="p-3 flex items-center gap-6">
+          <Link className="relative text-4xl" to={"/cart"}>
+            <FaCartShopping />
+            <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-secondary text-white font-semibold text-[10px] flex justify-center items-center">
+              {cartContext?.cart.reduce((sum, item) => sum + item.qty, 0)}
             </div>
-            <p className="hidden md:block">Log Out</p>
-          </>
-        </button>
-      </div>
-      <div className="flex justify-center">
-        <div className="relative w-full max-w-md mt-6 lg:hidden">
-          <input
-            type="text"
-            placeholder="Search for products..."
-            className="w-full p-2 border border-gray-300 rounded-l-md text-gray-800 rounded-lg focus:outline-gray-900"
-            onChange={(val) => onSearch(val.target.value)}
-          />
-          <button className="absolute right-0 top-0 h-full bg-gray-900 text-white p-4 rounded-r-md focus:outline-none flex justify-center items-center hover:bg-opacity-80 active:bg-opacity-50">
-            <FaSearch />
-          </button>
+          </Link>
+          <div
+            className="account-detail flex cursor-pointer items-center group"
+            onClick={() => setAccount(!isAccount)}
+          >
+            <img
+              src={`https://ui-avatars.com/api/?name=${"Ramadhan"}&color=FDFDFD&background=006837`}
+              className="account-detail h-12 w-12 shrink-0 rounded-full"
+              alt="Profile"
+            />
+            <div className="account-detail ml-3 relative">
+              <p className="account-detail overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-purple-primary group-hover:text-orange-primary text-end max-w-[150px]">
+                {userContext!.user?.fullname}
+              </p>
+              {userContext!.user?.premium && (
+                <div className="account-detail flex items-center text-white bg-yellow-600 py-1/2 px-2 text-[12px] rounded-full max-w-fit">
+                  <MdOutlineWorkspacePremium />
+                  Premium
+                </div>
+              )}
+              {isAccount && (
+                <div className="absolute w-[200px] bg-white shadow-lg right-0 top-0 translate-y-[56px] rounded-lg">
+                  <div
+                    onClick={() => navigator("/rack")}
+                    className="cursor-pointer py-3 px-4 text-[16px] font-bold text-dark hover:bg-primary hover:text-white rounded-t-lg"
+                  >
+                    My Rack
+                  </div>
+                  <div
+                    onClick={() => navigator("/history")}
+                    className="cursor-pointer py-3 px-4 text-[16px] font-bold text-dark hover:bg-primary hover:text-white"
+                  >
+                    History
+                  </div>
+                  <div
+                    onClick={handleLogOut}
+                    className="cursor-pointer py-3 px-4 text-[16px] font-bold text-red-500 hover:bg-red-500 hover:text-white rounded-b-lg"
+                  >
+                    Keluar
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </div>
