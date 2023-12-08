@@ -9,8 +9,8 @@ import { CartContext } from "../context/CartContext";
 
 function Header() {
   const navigator = useNavigate();
+  const userContext = useContext(UserContext);
   const cartContext = useContext(CartContext);
-  const { user } = useContext(UserContext);
   const [isAccount, setAccount] = useState(false);
 
   const documentRef = useRef<Document>(document);
@@ -58,12 +58,14 @@ function Header() {
             />
             <div className="account-detail ml-3 relative">
               <p className="account-detail overflow-hidden text-ellipsis whitespace-nowrap text-[16px] font-bold text-purple-primary group-hover:text-orange-primary text-end max-w-[150px]">
-                {user?.fullname}
+                {userContext!.user?.fullname}
               </p>
-              {user?.premium &&<div className="account-detail flex items-center text-white bg-yellow-600 py-1/2 px-2 text-[12px] rounded-full max-w-fit">
-                <MdOutlineWorkspacePremium />
-                Premium
-              </div>}
+              {userContext!.user?.premium && (
+                <div className="account-detail flex items-center text-white bg-yellow-600 py-1/2 px-2 text-[12px] rounded-full max-w-fit">
+                  <MdOutlineWorkspacePremium />
+                  Premium
+                </div>
+              )}
               {isAccount && (
                 <div className="absolute w-[200px] bg-white shadow-lg right-0 top-0 translate-y-[56px] rounded-lg">
                   <div

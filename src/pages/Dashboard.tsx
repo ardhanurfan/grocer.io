@@ -5,8 +5,11 @@ import Header from "../components/Header";
 import { FaSearch } from "react-icons/fa";
 import { supabase } from "../lib/api";
 import ProductCard from "../components/ProductCard";
+import Button from "../components/Button";
+import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
+  const navigator = useNavigate();
   const [search, setSearch] = useState<string>("");
   const [products, setProducts] = useState<Product[]>([]);
   const [filtered, setFiltered] = useState<Product[]>([]);
@@ -61,6 +64,14 @@ function Dashboard() {
         {/* Featured Products Section */}
         <section className="container mx-auto my-12">
           <h2 className="text-4xl font-bold mb-6">Featured Products</h2>
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-4xl font-bold ">Featured Products</h2>
+            <Button
+              type={"button"}
+              text="See All"
+              onClick={() => navigator("/list-product")}
+            />
+          </div>
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
             {filtered.map((product: Product, index) => (
               <div key={index} className="flex-shrink-0">
