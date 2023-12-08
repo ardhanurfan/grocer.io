@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import UserProvider, { UserContext } from "./context/UserContext";
 import { useContext } from "react";
+import History from "./pages/History";
 
 const router = createBrowserRouter([{ path: "*", Component: Root }]);
 
@@ -54,6 +55,7 @@ function Root() {
         <Route path="/cart" element={<Cart />} />
         <Route path="/premium" element={<Premium />} />
         <Route path="/rack" element={<Rack />} />
+        <Route path="/history" element={<History />} />
       </Route>
     </Routes>
   );

@@ -7,13 +7,15 @@ const ProductCard = ({
   amount,
 }: {
   product: Product;
-  expiredDate?: Date;
+  expiredDate?: string;
   amount?: number;
 }) => {
   const navigator = useNavigate();
   return (
     <div
-      onClick={() => navigator(`/detail/${product.id}`)}
+      onClick={() => {
+        expiredDate ? "" : navigator(`/detail/${product.id}`);
+      }}
       className="relative"
     >
       <div className="bg-white p-6 rounded-lg shadow-md hover:shadow-xl ease-in-out duration-300 cursor-pointer">
@@ -38,7 +40,11 @@ const ProductCard = ({
               </p>
             )}
             <p className="text-gray-600 mb-2">
-              Stok: {amount ? amount : product.stok}
+              {amount ? (
+                <p className="">Quantity: {amount}</p>
+              ) : (
+                <p className="">Stok: {product.stok}</p>
+              )}
             </p>
           </div>
         </div>

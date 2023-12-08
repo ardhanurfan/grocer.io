@@ -6,6 +6,7 @@ import ProductCard from "../components/ProductCard";
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/api";
 import GaugeComponent from "react-gauge-component";
+import moment from "moment";
 
 export default function Rack() {
   const [products, setProducts] = useState<any[]>([]);
@@ -21,8 +22,11 @@ export default function Rack() {
         if (error) {
           throw error;
         }
-        console.log(data);
-        setProducts(data);
+        const filteredData = data.filter((item) => {
+          const expiredDate = new Date(item.expired_date);
+          return expiredDate > now;
+        });
+        setProducts(filteredData);
       } catch (error) {
         console.error("Error fetching products");
         console.log(error);
@@ -118,7 +122,7 @@ export default function Rack() {
               <ProductCard
                 key={product.id}
                 product={product.products}
-                expiredDate={product.expired_date}
+                expiredDate={moment(product.expired_date).format("DD MMM YYYY")}
                 amount={product.amount}
               />
             ))}
