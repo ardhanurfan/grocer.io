@@ -12,25 +12,32 @@ Kedua, Buka command prompt di device Anda lalu pindah ke direktori tempat folder
 
 Ketiga, install semua dependencies dengan menjalankan command berikut,
 
-bash
-npm i
-
+```
+npm install
+```
 # or
-
+```
 yarn
+```
 
 Keempat, Jalankan program melalui localhost dengan menjalankan command berikut,
 
-bash
+```
 npm run dev
+```
 
 # or
 
+```
 yarn dev
+```
 
 Terakhir, Buka localhost:5173 pada browser Anda untuk melihat website Grocer.io
 
-Website Grocer.io juga telah dilakukan deployment yang bisa dilihat di ...
+Website Grocer.io juga telah dilakukan deployment yang bisa dilihat di https://grocerio.vercel.app/
+Untuk akun user dummy nya bisa login dengan email dan password berikut 
+- email    : akmalnatha@gmail.com
+- password : 12345678
 
 ## Dokumentasi Framework
 
